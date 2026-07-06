@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "190142885925",
+    "project_id": "velai-app-ce984",
+    "storage_bucket": "velai-app-ce984.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:190142885925:android:d3239dcc06ee80f01e8fcc",
+        "android_client_info": {
+          "package_name": "com.dhanasekar.myapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "190142885925-cr09cghm48gr57r5gjsn17ra3k5pnmpk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.dhanasekar.myapp",
+            "certificate_hash": "f2a154a0d9818dfa76fae549e1d42582ad1e7520"
+          }
+        },
+        {
+          "client_id": "190142885925-p1qu6c2dsc6p023jn774cptgqa48r0bt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCqm9LH4SDCW72nLKU0sb5DclWuMtO_E9M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "190142885925-p1qu6c2dsc6p023jn774cptgqa48r0bt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
