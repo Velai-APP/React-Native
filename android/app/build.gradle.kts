@@ -11,6 +11,8 @@ android {
     ndkVersion = flutter.ndkVersion
 
     compileOptions {
+        // Enable core library desugaring for libraries that require newer Java APIs
+        isCoreLibraryDesugaringEnabled = true
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
@@ -41,4 +43,9 @@ android {
 
 flutter {
     source = "../.."
+}
+
+dependencies {
+    // Required for core library desugaring (e.g. java.time APIs used by some AARs)
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.4")
 }
