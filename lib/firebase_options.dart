@@ -57,7 +57,6 @@ class DefaultFirebaseOptions {
     projectId: 'velai-app-ce984',
     storageBucket: 'velai-app-ce984.firebasestorage.app',
   );
-
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyBLUkucOBBTPgswp771nOt0UNhxPNBZXVI',
     appId: '1:190142885925:ios:109d8528250b16921e8fcc',
@@ -68,7 +67,6 @@ class DefaultFirebaseOptions {
     iosClientId: '190142885925-rdrat9rsl13i288jee22jriu44luiqs5.apps.googleusercontent.com',
     iosBundleId: 'com.example.velai',
   );
-
   static const FirebaseOptions macos = FirebaseOptions(
     apiKey: 'AIzaSyBLUkucOBBTPgswp771nOt0UNhxPNBZXVI',
     appId: '1:190142885925:ios:109d8528250b16921e8fcc',

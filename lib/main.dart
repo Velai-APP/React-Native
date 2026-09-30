@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:velai/l10n/app_localizations.dart';
 
 import 'firebase_options.dart';
 import 'screens/splash_screen.dart';
@@ -63,20 +64,49 @@ Future<void> setupFirebaseMessaging() async {
   }
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+
+  static _MyAppState? of(BuildContext context) {
+    return context.findAncestorStateOfType<_MyAppState>();
+  }
+}
+
+class _MyAppState extends State<MyApp> {
+  Locale? _locale;
+
+  void setLocale(Locale locale) {
+    setState(() {
+      _locale = locale;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Velai',
+
+      locale: _locale,
+
+      supportedLocales: const [
+        Locale('en'),
+        Locale('ta'),
+        Locale('hi'),
+      ],
+
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+
       theme: ThemeData(
         useMaterial3: true,
         colorScheme: ColorScheme.fromSeed(
           seedColor: Colors.blue,
         ),
       ),
+
       home: const SplashScreen(),
     );
   }

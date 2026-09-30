@@ -20,10 +20,6 @@
             "package_name": "com.dhanasekar.myapp",
             "certificate_hash": "f2a154a0d9818dfa76fae549e1d42582ad1e7520"
           }
-        },
-        {
-          "client_id": "190142885925-p1qu6c2dsc6p023jn774cptgqa48r0bt.apps.googleusercontent.com",
-          "client_type": 3
         }
       ],
       "api_key": [
@@ -35,8 +31,46 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "190142885925-p1qu6c2dsc6p023jn774cptgqa48r0bt.apps.googleusercontent.com",
+              "client_id": "190142885925-ufenskn6dngoimj8p2lbtkdpvqn9nkit.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "190142885925-f4ofh54cala2dfum89fh80s9atb8slqi.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.trio"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:190142885925:android:a3fb6abd24a620131e8fcc",
+        "android_client_info": {
+          "package_name": "com.trio.myapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCqm9LH4SDCW72nLKU0sb5DclWuMtO_E9M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "190142885925-ufenskn6dngoimj8p2lbtkdpvqn9nkit.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "190142885925-f4ofh54cala2dfum89fh80s9atb8slqi.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.trio"
+              }
             }
           ]
         }
