@@ -34,13 +34,13 @@ dependencies:
 
   
   firebase_core: ^4.13.0
-  firebase_auth: ^6.0.1
+  firebase_auth: ^6.7.0
   google_sign_in: ^6.3.0
   lottie: ^3.3.1
   cupertino_icons: ^1.0.8
   font_awesome_flutter: ^10.12.0
   shared_preferences: ^2.5.5
-  cloud_firestore: ^6.6.0
+  cloud_firestore: ^6.10.0
   firebase_messaging: ^16.4.1
   flutter_local_notifications: ^22.2.0
   fluttertoast: ^9.0.0
@@ -61,7 +61,7 @@ dependencies:
   image_picker: ^1.2.0
 
   # File Picker (Logo, Images)
-  file_picker: ^10.3.2
+  file_picker: ^11.0.3
 
   # Drag & Drop (Optional)
   flutter_dropzone: ^4.2.1
@@ -80,7 +80,7 @@ dependencies:
 
   # SVG Icons
   flutter_svg: ^2.2.0
-  cloud_functions: ^6.3.5
+  cloud_functions: ^6.5.0
   firebase_remote_config: ^6.5.5
   package_info_plus: ^9.0.1
   share_plus: ^12.0.2
@@ -91,6 +91,7 @@ dependencies:
     sdk: flutter
   flutter_markdown: ^0.7.7+1
   printing: ^5.14.3
+  firebase_storage: ^13.6.0
  
 
   

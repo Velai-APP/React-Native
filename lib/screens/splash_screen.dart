@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -8,6 +9,8 @@ import 'dashboard_screen.dart';
 import 'login_screen.dart';
 import 'onboarding_screen.dart';
 import 'language_screen.dart';
+import 'entrepreneur_intro_screen.dart';
+import 'auth_gate.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -83,104 +86,93 @@ class _SplashScreenState extends State<SplashScreen>
   }
 
   Future<void> _navigateToNextScreen() async {
-  if (!mounted || _isNavigating) {
-    return;
-  }
+    if (!mounted || _isNavigating) {
+      return;
+    }
 
-  _isNavigating = true;
+    _isNavigating = true;
 
-  try {
-    setStateIfMounted('Opening Velai...');
+    try {
+      setStateIfMounted('Opening Velai...');
 
-    final SharedPreferences preferences =
-        await SharedPreferences.getInstance().timeout(
-      const Duration(seconds: 2),
-    );
+      final SharedPreferences preferences =
+          await SharedPreferences.getInstance().timeout(
+            const Duration(seconds: 2),
+          );
 
-    // -------------------------------------------------------
-    // 1. CHECK LANGUAGE FIRST
-    // -------------------------------------------------------
-    final String? languageCode =
-        preferences.getString('language_code');
+      // -------------------------------------------------------
+      // 1. CHECK LANGUAGE FIRST
+      // -------------------------------------------------------
+      final String? languageCode = preferences.getString('language_code');
 
-    if (!mounted) return;
+      if (!mounted) return;
 
-    // First-ever launch / language not selected
-    if (languageCode == null || languageCode.isEmpty) {
+      // First-ever launch / language not selected
+      if (languageCode == null || languageCode.isEmpty) {
+        await Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute<void>(builder: (_) => const LanguageScreen()),
+          (route) => false,
+        );
+
+        return;
+      }
+
+      // -------------------------------------------------------
+      // 2. LANGUAGE ALREADY SELECTED
+      // Continue with existing app flow
+      // -------------------------------------------------------
+
+      final bool onboardingCompleted =
+          preferences.getBool('onboarding_completed') ?? false;
+
+      final User? user = FirebaseAuth.instance.currentUser;
+
+      if (!mounted) return;
+
+      Widget destination;
+
+      if (!onboardingCompleted) {
+        destination = const OnboardingScreen();
+      } else if (user != null) {
+        final businessProfileDoc = await FirebaseFirestore.instance
+            .collection('users')
+            .doc(user.uid)
+            .collection('businessProfile')
+            .doc('profile')
+            .get();
+
+        if (businessProfileDoc.exists && businessProfileDoc.data() != null) {
+          destination = DashboardScreen(
+            businessProfile: businessProfileDoc.data()!,
+          );
+        } else {
+          destination = const EntrepreneurIntroScreen();
+        }
+      } else {
+        destination = const AuthGate();
+      }
+
       await Navigator.of(context).pushAndRemoveUntil(
-        MaterialPageRoute<void>(
-          builder: (_) => const LanguageScreen(),
+        PageRouteBuilder<void>(
+          pageBuilder: (context, animation, secondaryAnimation) {
+            return destination;
+          },
+          transitionDuration: const Duration(milliseconds: 400),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return FadeTransition(opacity: animation, child: child);
+          },
         ),
         (route) => false,
       );
+    } on TimeoutException {
+      _openLoginScreen();
+    } catch (error, stackTrace) {
+      debugPrint('Splash navigation error: $error');
+      debugPrintStack(stackTrace: stackTrace);
 
-      return;
+      _openLoginScreen();
     }
-
-    // -------------------------------------------------------
-    // 2. LANGUAGE ALREADY SELECTED
-    // Continue with existing app flow
-    // -------------------------------------------------------
-
-    final bool onboardingCompleted =
-        preferences.getBool('onboarding_completed') ?? false;
-
-    final User? user = FirebaseAuth.instance.currentUser;
-
-    if (!mounted) {
-      return;
-    }
-
-    final Widget destination;
-
-    if (!onboardingCompleted) {
-      destination = const OnboardingScreen();
-    }
-
-    // Uncomment later if you want logged-in users
-    // to go directly to Dashboard.
-    //
-    // else if (user != null) {
-    //   destination = const DashboardScreen();
-    // }
-
-    else {
-      destination = const LoginScreen();
-    }
-
-    await Navigator.of(context).pushAndRemoveUntil(
-      PageRouteBuilder<void>(
-        pageBuilder: (
-          context,
-          animation,
-          secondaryAnimation,
-        ) {
-          return destination;
-        },
-        transitionDuration: const Duration(milliseconds: 400),
-        transitionsBuilder: (
-          context,
-          animation,
-          secondaryAnimation,
-          child,
-        ) {
-          return FadeTransition(
-            opacity: animation,
-            child: child,
-          );
-        },
-      ),
-      (route) => false,
-    );
-  } on TimeoutException {
-    _openLoginScreen();
-  } catch (error, stackTrace) {
-    debugPrint('Splash navigation error: $error');
-    debugPrintStack(stackTrace: stackTrace);
-
-    _openLoginScreen();
   }
-}
 
   void _openLoginScreen() {
     if (!mounted) {

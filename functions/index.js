@@ -617,6 +617,63 @@ const {
   "./businessEmail/google/provisionGoogleWorkspace.js"
 );
 
+const { respondToProcurementOrder } = require(
+  "./respond_to_procurement_order.js"
+);
+
+const { issueProcurementInvoice } = require(
+  "./issue_procurement_invoice.js"
+);
+
+const { submitProcurementPayment } = require(
+  "./submit_procurement_payment.js"
+);
+
+const paymentVerification =
+  require("./verify_procurement_payment");
+
+const {publishProcurementRfq} = require(
+  "./publishProcurementRfq.js"
+);
+
+const {requestProcurementOrder} = require(
+  "./requestProcurementOrder.js"
+);
+
+const {submitProcurementFulfilment} = require(
+  "./submitProcurementFulfilment.js"
+);
+
+const { confirmProcurementDelivery} = require(
+  "./confirmProcurementDelivery.js"
+);
+
+exports.confirmProcurementDelivery =
+  confirmProcurementDelivery;
+
+exports.submitProcurementFulfilment = submitProcurementFulfilment;
+
+exports.requestProcurementOrder =
+  requestProcurementOrder;
+
+exports.publishProcurementRfq =
+  publishProcurementRfq;
+
+exports.verifyProcurementPayment =
+  paymentVerification.verifyProcurementPayment;
+
+exports.getProcurementPaymentProof =
+  paymentVerification.getProcurementPaymentProof;
+
+exports.submitProcurementPayment =
+  submitProcurementPayment;
+
+exports.issueProcurementInvoice =
+  issueProcurementInvoice;
+
+exports.respondToProcurementOrder =
+  respondToProcurementOrder;
+
 exports.startGoogleWorkspaceSetup =
   startGoogleWorkspaceSetup;
 

@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'procurement_dashboard_screen.dart';
 import 'sop_generator_screen.dart';
 
 import 'domain_management_screen.dart';
@@ -12,6 +13,8 @@ import 'admin_registration_applications_screen.dart';
 import 'sop_home_screen.dart';
 import 'competitor_home_screen.dart';
 import 'business_email_screen.dart';
+import '../services/auth_service.dart';
+import 'auth_gate.dart';
 
 class DashboardScreen extends StatelessWidget {
   final Map<String, dynamic> businessProfile;
@@ -145,6 +148,22 @@ ServiceItem(
       context,
       MaterialPageRoute(
         builder: (_) => const BusinessEmailScreen(),
+      ),
+    );
+  },
+),
+ServiceItem(
+  icon: Icons.shopping_cart_checkout_rounded,
+  title: 'AI Procurement',
+  subtitle: 'Supplier quotes & purchase orders',
+  color: Colors.indigo,
+  onTap: () {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) => ProcurementDashboardScreen(
+         
+        ),
       ),
     );
   },
@@ -1040,21 +1059,33 @@ class _AppDrawer extends StatelessWidget {
                 ),
               ),
 
-              onTap: () async {
-                await FirebaseAuth.instance.signOut();
+             
+onTap: () async {
+  try {
+    // Sign out from Firebase and Google Sign-In.
+    await AuthService.instance.signOut();
 
-                if (!context.mounted) {
-                  return;
-                }
+    if (!context.mounted) return;
 
-                Navigator.pushAndRemoveUntil(
-                  context,
+    // Return to AuthGate.
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(
+        builder: (_) => const AuthGate(),
+      ),
+      (route) => false,
+    );
+  } catch (e) {
+    if (!context.mounted) return;
 
-                  MaterialPageRoute(builder: (_) => const LoginScreen()),
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('Logout failed: $e'),
+      ),
+    );
+  }
+},
 
-                  (route) => false,
-                );
-              },
             ),
 
             const SizedBox(height: 8),
@@ -1391,7 +1422,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(
-                  builder: (_) => const LoginScreen(),
+                  builder: (_) => const AuthGate(),
                 ),
                 (route) => false,
               );

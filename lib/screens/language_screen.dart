@@ -32,22 +32,22 @@ class _LanguageScreenState extends State<LanguageScreen>
       greeting: 'Welcome',
       iconText: 'A',
     ),
-    _LanguageOption(
-      code: 'ta',
-      title: 'Tamil',
-      nativeTitle: 'தமிழ்',
-      subtitle: 'தமிழில் தொடரவும்',
-      greeting: 'வணக்கம்',
-      iconText: 'அ',
-    ),
-    _LanguageOption(
-      code: 'hi',
-      title: 'Hindi',
-      nativeTitle: 'हिन्दी',
-      subtitle: 'हिन्दी में जारी रखें',
-      greeting: 'नमस्ते',
-      iconText: 'अ',
-    ),
+    // _LanguageOption(
+    //   code: 'ta',
+    //   title: 'Tamil',
+    //   nativeTitle: 'தமிழ்',
+    //   subtitle: 'தமிழில் தொடரவும்',
+    //   greeting: 'வணக்கம்',
+    //   iconText: 'அ',
+    // ),
+    // _LanguageOption(
+    //   code: 'hi',
+    //   title: 'Hindi',
+    //   nativeTitle: 'हिन्दी',
+    //   subtitle: 'हिन्दी में जारी रखें',
+    //   greeting: 'नमस्ते',
+    //   iconText: 'अ',
+    // ),
   ];
 
   @override
