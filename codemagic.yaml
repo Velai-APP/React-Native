@@ -2,7 +2,7 @@
 workflows:
   ios-debug:
     name: iPhone Debug IPA
-    max_build_duration: 60
+    max_build_duration: 120
     instance_type: mac_mini_m2
 
     environment:
@@ -11,23 +11,33 @@ workflows:
       cocoapods: default
 
     scripts:
-      - name: Get Flutter packages
-        script: flutter pub get
+      - name: Install Flutter dependencies
+        script: |
+          flutter pub get
 
-      - name: Build iOS Debug App
+      - name: Build physical iPhone debug app
         script: |
           flutter build ios --debug --no-codesign
 
-      - name: Create Debug IPA
-        script: |
-          mkdir -p /tmp/ios-debug/Payload
-          cp -R build/ios/iphoneos/Runner.app \
-            /tmp/ios-debug/Payload/
+          test -d build/ios/iphoneos/Runner.app
 
-          cd /tmp/ios-debug
-          zip -qry "$CM_BUILD_DIR/Runner-debug.ipa" Payload
+      - name: Package unsigned Debug IPA
+        script: |
+          mkdir -p build/ios/ipa
+          mkdir -p /tmp/iphone-debug/Payload
+
+          cp -R build/ios/iphoneos/Runner.app \
+            /tmp/iphone-debug/Payload/
+
+          cd /tmp/iphone-debug
+
+          zip -qry \
+            "$CM_BUILD_DIR/build/ios/ipa/Runner-debug.ipa" \
+            Payload
+
+          ls -lh \
+            "$CM_BUILD_DIR/build/ios/ipa/Runner-debug.ipa"
 
     artifacts:
-      - Runner-debug.ipa
-      - build/ios/iphoneos/Runner.app
+      - build/ios/ipa/*.ipa
       - /tmp/xcodebuild_logs/*.log
